@@ -22,6 +22,20 @@ public class Equipment
 	@Column
 	private String description;
 	
+	@Column
+	private String sector;
+	
+	
+	public String getSector() 
+	{
+		return sector;
+	}
+
+	public void setSector(String sector) 
+	{
+		this.sector = sector;
+	}
+
 	public Integer getId() 
 	{
 		return id;
