@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name="equipments")
 public class Equipment 
 {
 	@Id
@@ -24,7 +24,6 @@ public class Equipment
 	
 	@Column
 	private String sector;
-	
 	
 	public String getSector() 
 	{

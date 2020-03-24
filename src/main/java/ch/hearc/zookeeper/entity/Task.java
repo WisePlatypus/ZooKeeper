@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name="tasks")
 public class Task 
 {
 	@Id
@@ -34,7 +34,7 @@ public class Task
 	private Date executionDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
     private User user;
 	
 	

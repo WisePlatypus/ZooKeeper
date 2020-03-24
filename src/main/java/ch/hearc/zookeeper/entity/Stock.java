@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name="stocks")
 public class Stock 
 {
 	@Id
@@ -23,7 +23,7 @@ public class Stock
 	private int quantity;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
     private Equipment equipment;
 
 	public Integer getId() 

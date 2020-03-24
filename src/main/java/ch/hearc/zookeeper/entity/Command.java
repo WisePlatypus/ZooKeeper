@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name="commands")
 public class Command 
 {
 	@Id
@@ -28,10 +28,10 @@ public class Command
 	private boolean validated;
 	
 	@Column
-	private Date commandTime;
+	private Date commandDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
     private Equipment equipment;
 
 	public Integer getId() 
@@ -66,12 +66,12 @@ public class Command
 
 	public Date getCommandTime() 
 	{
-		return commandTime;
+		return commandDate;
 	}
 
-	public void setCommandTime(Date commandTime) 
+	public void setCommandTime(Date commandDate) 
 	{
-		this.commandTime = commandTime;
+		this.commandDate = commandDate;
 	}
 
 	public Equipment getEquipment() 
