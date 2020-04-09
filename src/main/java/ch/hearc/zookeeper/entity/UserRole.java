@@ -43,4 +43,9 @@ public class UserRole
 	{
 		this.id = id;
 	}
+
+	public Object findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
