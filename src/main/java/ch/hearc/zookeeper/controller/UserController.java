@@ -1,10 +1,13 @@
 package ch.hearc.zookeeper.controller;
 
+import java.util.Collection;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -70,5 +73,16 @@ public class UserController
 		
 		userRepository.save(user);
 		return "/user/login";
+	}
+	
+	@GetMapping("/user")
+	public String users(Model model)
+	{
+		Collection<SimpleGrantedAuthority> authorities = 
+				(Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		
+		model.addAttribute("authorities", authorities);
+	
+		return "/user/user";
 	}
 }

@@ -7,6 +7,17 @@
     <body>
         <h1>Hello world from web security - User Page</h1>
         <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+        
+        <p> Your authorities are : </p>
+        
+        <table>
+			<tr th:each="authoritie: ${authorities}">
+				<td th:text="${authoritie}" />
+			</tr>
+		</table>
+		
+		<br>
+        
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Sign Out"/>
         </form>
