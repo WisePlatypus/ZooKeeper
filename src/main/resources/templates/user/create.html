@@ -16,7 +16,7 @@
 			password : <input type="password" th:field="*{password}" />
 		</p>
 		
-		<select class="form-control">
+		<select th:field="*{roles_Id}" class="form-control">
        		<option th:each="roleValue: ${roles}" th:value="${roleValue.id}" th:text="${roleValue.name}"></option>
     	</select>
 

@@ -3,11 +3,13 @@ package ch.hearc.zookeeper.configuration;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Configuration
@@ -19,7 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     {
         http        
             .authorizeRequests()
-                .antMatchers("/", "/home", "/users/create").permitAll()
+                .antMatchers("/", "/home", "/users/create", "/users").permitAll()
                 //.antMatchers("/users").hasAnyRole("USER", "ADMIN")
                 .and()
             .formLogin()
@@ -38,7 +40,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception 
     {
       auth.jdbcAuthentication().dataSource(dataSource)
-          .usersByUsernameQuery("select username,password, enabled from users where username=?")
-          .authoritiesByUsernameQuery("select username, role from user_roles where username=?");
+          .usersByUsernameQuery("select name, password, enabled from users where name=?")
+          .authoritiesByUsernameQuery("SELECT users.name, roles.name FROM users INNER JOIN roles "
+          		+ "ON users.roles_Id=roles.id "
+          		+ "where users.name=?");
+    }
+    
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

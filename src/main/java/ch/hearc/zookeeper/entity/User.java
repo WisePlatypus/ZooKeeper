@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 
 @Entity
 @Table(name="users")
@@ -25,8 +26,11 @@ public class User
 	@Column
 	private String password;
 	
+	@Column
+	private Integer roles_Id;
+	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "roles_Id", nullable = false, insertable = false, updatable = false)
     private UserRole role;
 	
 	public User()
@@ -54,6 +58,11 @@ public class User
 		return role;
 	}
 	
+	public Integer getRoles_Id() 
+	{
+		return roles_Id;
+	}
+	
 	public void setName(String name) 
 	{
 		this.name = name;
@@ -72,5 +81,10 @@ public class User
 	public void setId(Integer id) 
 	{
 		this.id = id;
+	}
+	
+	public void setRoles_Id(Integer roles_Id) 
+	{
+		this.roles_Id = roles_Id;
 	}
 }
