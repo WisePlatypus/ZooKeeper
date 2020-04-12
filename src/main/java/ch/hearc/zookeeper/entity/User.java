@@ -18,7 +18,7 @@ public class User
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
-	private Integer id;
+	private long id;
 	
 	@Column
 	private String name;
@@ -27,7 +27,7 @@ public class User
 	private String password;
 	
 	@Column
-	private Integer roles_Id;
+	private long roles_Id;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "roles_Id", nullable = false, insertable = false, updatable = false)
@@ -38,7 +38,7 @@ public class User
 		
 	}
 	
-	public Integer getId() 
+	public long getId() 
 	{
 		return id;
 	}
@@ -58,7 +58,7 @@ public class User
 		return role;
 	}
 	
-	public Integer getRoles_Id() 
+	public long getRoles_Id() 
 	{
 		return roles_Id;
 	}
@@ -78,12 +78,12 @@ public class User
 		this.role = role;
 	}
 	
-	public void setId(Integer id) 
+	public void setId(long id) 
 	{
 		this.id = id;
 	}
 	
-	public void setRoles_Id(Integer roles_Id) 
+	public void setRoles_Id(long roles_Id) 
 	{
 		this.roles_Id = roles_Id;
 	}

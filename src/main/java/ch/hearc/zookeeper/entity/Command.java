@@ -19,7 +19,7 @@ public class Command
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
-	private Integer id;
+	private long id;
 	
 	@Column
 	private int quantity;
@@ -34,12 +34,12 @@ public class Command
     @JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
     private Equipment equipment;
 
-	public Integer getId() 
+	public long getId() 
 	{
 		return id;
 	}
 
-	public void setId(Integer id) 
+	public void setId(long id) 
 	{
 		this.id = id;
 	}

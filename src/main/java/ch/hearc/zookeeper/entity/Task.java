@@ -18,7 +18,7 @@ public class Task
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
-	private Integer id;
+	private long id;
 	
 	@Column
 	private String name;
@@ -29,23 +29,34 @@ public class Task
 	@Column
 	private boolean executed;
 	
-
 	@Column
 	private Date executionDate;
 	
+	@Column
+	private long user_Id;
+	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "user_Id", nullable = false, insertable = false, updatable = false)
     private User user;
 	
-	
-	public Integer getId() 
+	public long getId() 
 	{
 		return id;
 	}
 
-	public void setId(Integer id) 
+	public void setId(long id) 
 	{
 		this.id = id;
+	}
+	
+	public long getUserId() 
+	{
+		return user_Id;
+	}
+
+	public void setUserId(long user_Id) 
+	{
+		this.user_Id = user_Id;
 	}
 
 	public String getName() 
