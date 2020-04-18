@@ -7,13 +7,13 @@ public class EquipmentData {
 	private long id;
 	private String name;
 	private String description;
-	private long id_sector;
+	private long sector_id;
 
 	public EquipmentData(Equipment equipment) {
 		id = equipment.getId();
 		name = equipment.getName();
 		description = equipment.getDescription();
-		id_sector = equipment.getSector().getId();
+		sector_id = equipment.getSector().getId();
 	}
 
 	public EquipmentData() {
@@ -45,12 +45,12 @@ public class EquipmentData {
 		this.id = id;
 	}
 
-	public long getId_sector() {
-		return id_sector;
+	public long getSector_id() {
+		return sector_id;
 	}
 
-	public void setId_sector(long id_sector) {
-		this.id_sector = id_sector;
+	public void setSector_id(long id_sector) {
+		this.sector_id = id_sector;
 	}
 
 }

@@ -26,7 +26,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ch.hearc.zookeeper.dataform.EquipmentData;
 import ch.hearc.zookeeper.entity.Equipment;
 import ch.hearc.zookeeper.entity.EquipmentRepository;
-
+import ch.hearc.zookeeper.entity.Sector;
+import ch.hearc.zookeeper.entity.SectorRepository;
 import ch.hearc.zookeeper.entity.User;
 import ch.hearc.zookeeper.entity.UserRepository;
 import ch.hearc.zookeeper.entity.UserRole;
@@ -35,60 +36,25 @@ import ch.hearc.zookeeper.entity.UserRoleRepository;
 @Controller
 public class EquipmentController 
 {	
-	private static String keeperRole = "keeper";	// name of the role for the ones who are concern by equipment
-	
+
 	@Autowired
-	UserRepository userRepository;
+	SectorRepository sectorRepository;
 	
 	@Autowired
 	EquipmentRepository equipmentRepository;
 	
-	@Autowired
-	UserRoleRepository userRoleRepository;
-	
+
 	@InitBinder
 	public void initBinder (WebDataBinder binder) 
 	{
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
     }
 	
-	public List<User> getAgents()
-	{
-		List<UserRole> roles = userRoleRepository.findAll();
-		List<User> allUsers = userRepository.findAll();
-		
-		List<User> agents = new ArrayList<User>();
-		
-		long keeperRoleId = -1;
-		
-		for(UserRole role : roles)
-		{
-			if(role.getName().equals(keeperRole))
-			{
-				keeperRoleId = role.getId();
-				break;
-			}
-		}
-		
-		if(keeperRoleId != -1)
-		{
-			for(User user : allUsers)
-			{
-				if(user.getRoles_Id() == keeperRoleId)
-				{
-					agents.add(user);
-				}
-			}
-		}
-		
-		return agents;
-	}
-	 
 	@PostMapping("/equipment/create")
 	public String create(Model model) 
 	{		
 		model.addAttribute("equipmentData", new EquipmentData());
-		model.addAttribute("users", getAgents());
+		model.addAttribute("sectors", sectorRepository.findAll());
 		
 		return "equipment/create";
 	}
@@ -96,9 +62,16 @@ public class EquipmentController
 	@RequestMapping(value = "/equipment/insert", method = RequestMethod.POST)
 	public String insert(Model model, @Valid @ModelAttribute("equipmentData") EquipmentData equipmentData, BindingResult result)
 	{
+		System.out.println("****************************************************************************");
+		System.out.println("****************************************************************************");
+		System.out.println("****************************************************************************");
+		System.out.println("****************************************************************************");
+		System.out.println(equipmentData.getSector_id());
 		if(!result.hasErrors())
 		{
 			Equipment equipment = new Equipment(equipmentData);
+			
+			System.out.println(equipment.getSector_id());
 			
 			equipmentRepository.save(equipment);
 	    }
@@ -134,7 +107,7 @@ public class EquipmentController
 	      .orElseThrow(() -> new IllegalArgumentException("Invalid equipment Id:" + id));
 	    
 	    model.addAttribute("equipmentData", new EquipmentData(equipment));
-	    model.addAttribute("users", getAgents());
+	    model.addAttribute("sectors", sectorRepository.findAll());
 	    
 	    return "/equipment/edit";
 	}

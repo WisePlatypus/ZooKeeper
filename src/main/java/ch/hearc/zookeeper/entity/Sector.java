@@ -23,7 +23,7 @@ public class Sector
 	private String name;
 
 	public Sector(@Valid SectorData sectorData) {
-		this.setData(sectorData);
+		name = sectorData.getName();
 	}
 	
 	public Sector()

@@ -28,12 +28,22 @@ public class Equipment
 	@Column
 	private String description;
 	
+	@Column
+	private long sector_id;
+	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "sector_id", nullable = false, insertable = false, updatable = false)
 	private Sector sector;
 	
 	public Equipment(@Valid EquipmentData equipmentData) {
-		// TODO Auto-generated constructor stub
+		name = equipmentData.getName();
+		description = equipmentData.getDescription();
+		sector_id = equipmentData.getSector_id();
+	}
+	
+	public Equipment()
+	{
+		
 	}
 
 	public Sector getSector() 
@@ -76,8 +86,19 @@ public class Equipment
 		this.description = description;
 	}
 
-	public void setData(@Valid EquipmentData equipmentData) {
-		// TODO Auto-generated method stub
-		
+	public void setData(@Valid EquipmentData equipmentData) 
+	{
+		name = equipmentData.getName();
+		description = equipmentData.getDescription();
+		sector_id = equipmentData.getSector_id();
+		id = equipmentData.getId();
+	}
+
+	public long getSector_id() {
+		return sector_id;
+	}
+
+	public void setSector_id(long sector_id) {
+		this.sector_id = sector_id;
 	}
 }

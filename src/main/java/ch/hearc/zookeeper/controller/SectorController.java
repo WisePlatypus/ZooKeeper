@@ -35,16 +35,10 @@ import ch.hearc.zookeeper.entity.UserRoleRepository;
 @Controller
 public class SectorController 
 {	
-	private static String keeperRole = "keeper";	// name of the role for the ones who are concern by sector
-	
-	@Autowired
-	UserRepository userRepository;
-	
+
 	@Autowired
 	SectorRepository sectorRepository;
 	
-	@Autowired
-	UserRoleRepository userRoleRepository;
 	
 	@InitBinder
 	public void initBinder (WebDataBinder binder) 
@@ -52,43 +46,10 @@ public class SectorController
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
     }
 	
-	public List<User> getAgents()
-	{
-		List<UserRole> roles = userRoleRepository.findAll();
-		List<User> allUsers = userRepository.findAll();
-		
-		List<User> agents = new ArrayList<User>();
-		
-		long keeperRoleId = -1;
-		
-		for(UserRole role : roles)
-		{
-			if(role.getName().equals(keeperRole))
-			{
-				keeperRoleId = role.getId();
-				break;
-			}
-		}
-		
-		if(keeperRoleId != -1)
-		{
-			for(User user : allUsers)
-			{
-				if(user.getRoles_Id() == keeperRoleId)
-				{
-					agents.add(user);
-				}
-			}
-		}
-		
-		return agents;
-	}
-	 
 	@PostMapping("/sector/create")
 	public String create(Model model) 
 	{		
 		model.addAttribute("sectorData", new SectorData());
-		model.addAttribute("users", getAgents());
 		
 		return "sector/create";
 	}
@@ -134,7 +95,6 @@ public class SectorController
 	      .orElseThrow(() -> new IllegalArgumentException("Invalid sector Id:" + id));
 	    
 	    model.addAttribute("sectorData", new SectorData(sector));
-	    model.addAttribute("users", getAgents());
 	    
 	    return "/sector/edit";
 	}

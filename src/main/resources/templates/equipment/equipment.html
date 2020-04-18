@@ -24,10 +24,9 @@
         
         		<td><span th:text="${equipment.name}"></span></td>
         		<td><span th:text="${equipment.description}"></span></td>
-        		<!-- 
-				TODO SECTOR        		
-        		<td><span th:text="${equipment.}"></span></td>
-        		 -->
+     		
+        		<td><span th:text="${equipment.sector.name}"></span></td>
+
         		
         		<td>
             		<form action="#" th:action="@{/equipment/edit/} + ${{equipment.id}}" method="post">
