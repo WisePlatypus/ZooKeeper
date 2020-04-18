@@ -9,10 +9,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.apache.catalina.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,24 +23,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ch.hearc.zookeeper.dataform.TaskData;
-import ch.hearc.zookeeper.entity.Task;
-import ch.hearc.zookeeper.entity.TaskRepository;
+import ch.hearc.zookeeper.dataform.SectorData;
+import ch.hearc.zookeeper.entity.Sector;
+import ch.hearc.zookeeper.entity.SectorRepository;
+
 import ch.hearc.zookeeper.entity.User;
 import ch.hearc.zookeeper.entity.UserRepository;
 import ch.hearc.zookeeper.entity.UserRole;
 import ch.hearc.zookeeper.entity.UserRoleRepository;
 
 @Controller
-public class TaskController 
+public class SectorController 
 {	
-	private static String keeperRole = "keeper";	// name of the role for the ones who are concern by tasks
+	private static String keeperRole = "keeper";	// name of the role for the ones who are concern by sector
 	
 	@Autowired
 	UserRepository userRepository;
 	
 	@Autowired
-	TaskRepository taskRepository;
+	SectorRepository sectorRepository;
 	
 	@Autowired
 	UserRoleRepository userRoleRepository;
@@ -85,63 +84,63 @@ public class TaskController
 		return agents;
 	}
 	 
-	@PostMapping("/tasks/create")
+	@PostMapping("/sector/create")
 	public String create(Model model) 
 	{		
-		model.addAttribute("taskData", new TaskData());
+		model.addAttribute("sectorData", new SectorData());
 		model.addAttribute("users", getAgents());
 		
-		return "task/create";
+		return "sector/create";
 	}
 	
-	@RequestMapping(value = "/tasks/insert", method = RequestMethod.POST)
-	public String insert(Model model, @Valid @ModelAttribute("taskData") TaskData taskData, BindingResult result)
+	@RequestMapping(value = "/sector/insert", method = RequestMethod.POST)
+	public String insert(Model model, @Valid @ModelAttribute("sectorData") SectorData sectorData, BindingResult result)
 	{
 		if(!result.hasErrors())
 		{
-			Task task = new Task(taskData);
+			Sector sector = new Sector(sectorData);
 			
-			taskRepository.save(task);
+			sectorRepository.save(sector);
 	    }
 		
-		return "redirect:/tasks";
+		return "redirect:/sector";
 	}
 	
-	@GetMapping("/tasks")
+	@GetMapping("/sector")
 	public String users(Model model)
 	{		
-		model.addAttribute("tasks", taskRepository.findAll());
+		model.addAttribute("sectors", sectorRepository.findAll());
 		
-		return "/task/tasks";
+		return "/sector/sector";
 	}
 	
-	@PostMapping("/tasks/delete/{id}")
+	@PostMapping("/sector/delete/{id}")
 	public String delete(@PathVariable("id") long id, Model model)
 	{
-	    Task task = taskRepository.findById(id)
-	      .orElseThrow(() -> new IllegalArgumentException("Invalid task Id:" + id));
+	    Sector sector = sectorRepository.findById(id)
+	      .orElseThrow(() -> new IllegalArgumentException("Invalid sector Id:" + id));
 
-	    taskRepository.delete(task);
+	    sectorRepository.delete(sector);
 	    
 	    //return users(model);
 	    
-	    return "redirect:/tasks";
+	    return "redirect:/sector";
 	}
 	
-	@PostMapping("/tasks/edit/{id}")
+	@PostMapping("/sector/edit/{id}")
 	public String edit(@PathVariable("id") long id, Model model) 
 	{
-	    Task task = taskRepository.findById(id)
-	      .orElseThrow(() -> new IllegalArgumentException("Invalid task Id:" + id));
+	    Sector sector = sectorRepository.findById(id)
+	      .orElseThrow(() -> new IllegalArgumentException("Invalid sector Id:" + id));
 	    
-	    model.addAttribute("taskData", new TaskData(task));
+	    model.addAttribute("sectorData", new SectorData(sector));
 	    model.addAttribute("users", getAgents());
 	    
-	    return "/task/edit";
+	    return "/sector/edit";
 	}
 	
-	@PostMapping("/tasks/update")
-	public String update(Model model, @Valid @ModelAttribute("taskData") TaskData taskData, BindingResult result)
+	@PostMapping("/sector/update")
+	public String update(Model model, @Valid @ModelAttribute("sectorData") SectorData sectorData, BindingResult result)
 	{
 //		if(result.hasErrors()){
 //	        //error handling  
@@ -152,16 +151,16 @@ public class TaskController
 //	        ....
 //	    }
 		
-		Optional<Task> taskOpt = taskRepository.findById(taskData.getId());
+		Optional<Sector> sectorOpt = sectorRepository.findById(sectorData.getId());
 		
-		if(taskOpt.isPresent())
+		if(sectorOpt.isPresent())
 		{
-			Task task = taskOpt.get();
-			task.setData(taskData);
+			Sector sector = sectorOpt.get();
+			sector.setData(sectorData);
 			
-			taskRepository.save(task);
+			sectorRepository.save(sector);
 		}
 		
-		return "redirect:/tasks";
+		return "redirect:/sector";
 	}
 }

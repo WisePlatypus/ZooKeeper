@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+
+import ch.hearc.zookeeper.dataform.StockData;
 
 @Entity
 @Table(name="stocks")
@@ -25,6 +28,10 @@ public class Stock
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
     private Equipment equipment;
+
+	public Stock(@Valid StockData stockData) {
+		// TODO Auto-generated constructor stub
+	}
 
 	public long getId() 
 	{
@@ -54,5 +61,10 @@ public class Stock
 	public void setEquipment(Equipment equipment) 
 	{
 		this.equipment = equipment;
+	}
+
+	public void setData(@Valid StockData stockData) {
+		// TODO Auto-generated method stub
+		
 	}
 }

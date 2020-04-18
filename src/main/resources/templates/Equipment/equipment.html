@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>User creation</title>
+</head>
+<body>
+	<h1>Equipment</h1>
+	
+	<form action="#" th:action="@{/equipment/create}" method="post">
+  		<button type="submit"> Add Equipment </button>
+	</form>
+	
+	<table>
+		<thead>
+        	<tr>
+            	<th> Name </th>
+            	<th> Description </th>
+            	<th> Sector </th>
+        	</tr>
+    	</thead>
+	
+		<tbody>
+    		<tr th:each="equipment : ${equipments}">
+        
+        		<td><span th:text="${equipment.name}"></span></td>
+        		<td><span th:text="${equipment.description}"></span></td>
+        		<!-- 
+				TODO SECTOR        		
+        		<td><span th:text="${equipment.}"></span></td>
+        		 -->
+        		
+        		<td>
+            		<form action="#" th:action="@{/equipment/edit/} + ${{equipment.id}}" method="post">
+                		<button type="submit"> <i>edit</i> </button>
+            		</form>
+        		</td>
+        
+        		<td>
+	            	<form action="#" th:action="@{/equipment/delete/} + ${{equipment.id}}" method="post">
+	                	<button type="submit"> <i>delete</i> </button>
+	            	</form>
+        		</td>
+    		</tr>
+		</tbody>
+	</table>
+	
+</body>
+</html>

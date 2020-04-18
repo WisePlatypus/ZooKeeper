@@ -9,10 +9,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.apache.catalina.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,24 +23,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ch.hearc.zookeeper.dataform.TaskData;
-import ch.hearc.zookeeper.entity.Task;
-import ch.hearc.zookeeper.entity.TaskRepository;
+import ch.hearc.zookeeper.dataform.StockData;
+import ch.hearc.zookeeper.entity.Stock;
+import ch.hearc.zookeeper.entity.StockRepository;
+
 import ch.hearc.zookeeper.entity.User;
 import ch.hearc.zookeeper.entity.UserRepository;
 import ch.hearc.zookeeper.entity.UserRole;
 import ch.hearc.zookeeper.entity.UserRoleRepository;
 
 @Controller
-public class TaskController 
+public class StockController 
 {	
-	private static String keeperRole = "keeper";	// name of the role for the ones who are concern by tasks
+	private static String keeperRole = "keeper";	// name of the role for the ones who are concern by stock
 	
 	@Autowired
 	UserRepository userRepository;
 	
 	@Autowired
-	TaskRepository taskRepository;
+	StockRepository stockRepository;
 	
 	@Autowired
 	UserRoleRepository userRoleRepository;
@@ -85,63 +84,55 @@ public class TaskController
 		return agents;
 	}
 	 
-	@PostMapping("/tasks/create")
-	public String create(Model model) 
-	{		
-		model.addAttribute("taskData", new TaskData());
-		model.addAttribute("users", getAgents());
-		
-		return "task/create";
-	}
 	
-	@RequestMapping(value = "/tasks/insert", method = RequestMethod.POST)
-	public String insert(Model model, @Valid @ModelAttribute("taskData") TaskData taskData, BindingResult result)
+	@RequestMapping(value = "/stock/insert", method = RequestMethod.POST)
+	public String insert(Model model, @Valid @ModelAttribute("stockData") StockData stockData, BindingResult result)
 	{
 		if(!result.hasErrors())
 		{
-			Task task = new Task(taskData);
+			Stock stock = new Stock(stockData);
 			
-			taskRepository.save(task);
+			stockRepository.save(stock);
 	    }
 		
-		return "redirect:/tasks";
+		return "redirect:/stock";
 	}
 	
-	@GetMapping("/tasks")
+	@GetMapping("/stock")
 	public String users(Model model)
 	{		
-		model.addAttribute("tasks", taskRepository.findAll());
+		model.addAttribute("stock", stockRepository.findAll());
 		
-		return "/task/tasks";
+		return "/stock/stock";
 	}
 	
-	@PostMapping("/tasks/delete/{id}")
+	@PostMapping("/stock/delete/{id}")
 	public String delete(@PathVariable("id") long id, Model model)
 	{
-	    Task task = taskRepository.findById(id)
-	      .orElseThrow(() -> new IllegalArgumentException("Invalid task Id:" + id));
+	    Stock stock = stockRepository.findById(id)
+	      .orElseThrow(() -> new IllegalArgumentException("Invalid stock Id:" + id));
 
-	    taskRepository.delete(task);
+	    stockRepository.delete(stock);
 	    
 	    //return users(model);
 	    
-	    return "redirect:/tasks";
+	    return "redirect:/stock";
 	}
 	
-	@PostMapping("/tasks/edit/{id}")
+	@PostMapping("/stock/edit/{id}")
 	public String edit(@PathVariable("id") long id, Model model) 
 	{
-	    Task task = taskRepository.findById(id)
-	      .orElseThrow(() -> new IllegalArgumentException("Invalid task Id:" + id));
+	    Stock stock = stockRepository.findById(id)
+	      .orElseThrow(() -> new IllegalArgumentException("Invalid stock Id:" + id));
 	    
-	    model.addAttribute("taskData", new TaskData(task));
+	    model.addAttribute("stockData", new StockData(stock));
 	    model.addAttribute("users", getAgents());
 	    
-	    return "/task/edit";
+	    return "/stock/edit";
 	}
 	
-	@PostMapping("/tasks/update")
-	public String update(Model model, @Valid @ModelAttribute("taskData") TaskData taskData, BindingResult result)
+	@PostMapping("/stock/update")
+	public String update(Model model, @Valid @ModelAttribute("stockData") StockData stockData, BindingResult result)
 	{
 //		if(result.hasErrors()){
 //	        //error handling  
@@ -152,16 +143,16 @@ public class TaskController
 //	        ....
 //	    }
 		
-		Optional<Task> taskOpt = taskRepository.findById(taskData.getId());
+		Optional<Stock> stockOpt = stockRepository.findById(stockData.getId());
 		
-		if(taskOpt.isPresent())
+		if(stockOpt.isPresent())
 		{
-			Task task = taskOpt.get();
-			task.setData(taskData);
+			Stock stock = stockOpt.get();
+			stock.setData(stockData);
 			
-			taskRepository.save(task);
+			stockRepository.save(stock);
 		}
 		
-		return "redirect:/tasks";
+		return "redirect:/stock";
 	}
 }

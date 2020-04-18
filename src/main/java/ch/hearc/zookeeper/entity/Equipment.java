@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+
+import ch.hearc.zookeeper.dataform.EquipmentData;
 
 @Entity
 @Table(name="equipments")
@@ -29,6 +32,10 @@ public class Equipment
 	@JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
 	private Sector sector;
 	
+	public Equipment(@Valid EquipmentData equipmentData) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Sector getSector() 
 	{
 		return sector;
@@ -67,5 +74,10 @@ public class Equipment
 	public void setDescription(String description) 
 	{
 		this.description = description;
+	}
+
+	public void setData(@Valid EquipmentData equipmentData) {
+		// TODO Auto-generated method stub
+		
 	}
 }
