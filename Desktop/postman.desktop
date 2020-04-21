@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Postman
+Comment=Launch VisualVM
+Exec=/home/javaee/dev/Postman/Postman
+Icon=/home/javaee/Pictures/postman.jpg
+Type=Application

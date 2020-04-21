@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+/home/javaee/dev/STS-WS/gc-workspace/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+784447697.index
+1054049760.index
+3691552988.index
+656147712.index
+3669437898.index
+3736368698.index

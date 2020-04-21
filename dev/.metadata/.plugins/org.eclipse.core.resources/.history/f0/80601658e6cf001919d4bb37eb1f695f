@@ -1,0 +1,56 @@
+package com.example.demo;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+
+
+@Entity
+@Table(name="persons")
+
+public class Persons {
+	
+
+	@Id
+	@Column
+	private int PersonID;
+	
+	@Column
+	private String LastName;
+	
+	@Column
+	private String FirstName;
+	
+	public Persons() {
+		
+	}
+
+	public int getPersonID() {
+		return PersonID;
+	}
+
+	public void setPersonID(int personID) {
+		PersonID = personID;
+	}
+
+	public String getLastName() {
+		return LastName;
+	}
+
+	public void setLastName(String lastName) {
+		LastName = lastName;
+	}
+
+	public String getFirstName() {
+		return FirstName;
+	}
+
+	public void setFirstName(String firstName) {
+		FirstName = firstName;
+	}
+	
+
+	
+	
+
+}

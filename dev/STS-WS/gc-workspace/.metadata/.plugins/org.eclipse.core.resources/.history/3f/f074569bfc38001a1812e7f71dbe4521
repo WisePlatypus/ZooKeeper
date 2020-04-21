@@ -1,0 +1,13 @@
+package com.example.demo;
+
+import org.springframework.data.annotation.*;
+
+@Entity
+public class Email {
+	
+	@Id
+	@GeneratedValue(strategy =
+	GenerationType.AUTO)
+	private Long id;
+
+}

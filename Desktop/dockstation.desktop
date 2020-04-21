@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=DockStation
+Comment=Working with Docker has never been so easy and convenient.
+Exec="/opt/DockStation/dockstation" %U
+Terminal=false
+Type=Application
+Icon=dockstation
+StartupWMClass=DockStation
+Categories=Development;

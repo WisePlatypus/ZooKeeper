@@ -1,0 +1,62 @@
+package com.example.demo;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="countrylanguage")
+
+public class Language {
+
+	@Column
+	private String CountryCode;
+	
+	@Column
+	private String Language;
+	
+	@Column
+	private String IsOfficial;
+	
+	@Column
+	private float Percentage;
+	
+	public Language () {
+		
+	}
+
+	public String getCountryCode() {
+		return CountryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		CountryCode = countryCode;
+	}
+
+	public String getLanguage() {
+		return Language;
+	}
+
+	public void setLanguage(String language) {
+		Language = language;
+	}
+
+	public String getIsOfficial() {
+		return IsOfficial;
+	}
+
+	public void setIsOfficial(String isOfficial) {
+		IsOfficial = isOfficial;
+	}
+
+	public float getPercentage() {
+		return Percentage;
+	}
+
+	public void setPercentage(float percentage) {
+		Percentage = percentage;
+	}
+
+
+	
+}

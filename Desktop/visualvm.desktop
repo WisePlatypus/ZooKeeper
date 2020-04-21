@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Visual VM
+Comment=Launch VisualVM
+Exec=/home/javaee/dev/visualvm_143/bin/visualvm
+Icon=/home/javaee/Pictures/visualvm.png
+Type=Application
