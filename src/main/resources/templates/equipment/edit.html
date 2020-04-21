@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>User creation</title>
+<title>Equipment edition</title>
 </head>
 <body>
 	<h1>Form</h1>
-	<form action="#" th:action="@{/tasks/update}" th:object="${taskData}" method="post">	
+	<form action="#" th:action="@{/equipment/update}" th:object="${equipmentData}" method="post">	
 		
 		<input type="hidden" th:field="*{id}" />
 		
@@ -20,60 +20,22 @@
 		</p>
 		
 		<p>
-			executed : <input type="checkbox" th:field="*{executed}"/>
+			Sector : 
 		</p>
 		
-		<p>
-			execution date : <input type="checkbox" th:field="*{date}"/>
-		</p>
-			
-		<table>
-			<thead>
-	        	<tr>
-	            	<th> Year </th>
-	            	<th> Month </th>
-	            	<th> Day </th>
-	        	</tr>
-	    	</thead>
-
-			<tbody>
-	    		<tr>
-	        		<td>
-	            		<select th:field="*{year}" class="form-control" >
-	       					<option th:each="i: ${#numbers.sequence(2020, 2050)}" th:value="${i}" th:text="${i}"></option>
-		    			</select>
-	        		</td>
-	        		
-	        		<td>
-	            		<select th:field="*{month}" class="form-control" >
-	       					<option th:each="i: ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}"></option>
-		    			</select>
-	        		</td>
-	        		
-	        		<td>
-	            		<select th:field="*{day}" class="form-control" >
-	       					<option th:each="i: ${#numbers.sequence(1, 31)}" th:value="${i}" th:text="${i}"></option>
-		    			</select>
-	        		</td>
-	    		</tr>
-			</tbody>
-		</table>		<p>
-			Keeper : 
-		</p>
-		
-		<select th:field="*{user_Id}" class="form-control">
-       		<option th:each="userValue: ${users}" th:value="${userValue.id}" th:text="${userValue.name}"></option>
+		<select th:field="*{sector_id}" class="form-control">
+       		<option th:each="sectorValue: ${sectors}" th:value="${sectorValue.id}" th:text="${sectorValue.name}"></option>
     	</select>
     	
-		
+    	<br>
 
     	<br>
 
 		<input type="submit" value="Submit" /> <input type="reset" value="Reset" />
 	</form>
 	
-	<form action="#" th:action="@{/tasks}" method="get">
-  		<button type="submit"> Back to tasks list </button>
+	<form action="#" th:action="@{/equipment}" method="get">
+  		<button type="submit"> Back to equipments list </button>
 	</form>
 	
 </body>

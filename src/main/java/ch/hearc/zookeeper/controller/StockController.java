@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ch.hearc.zookeeper.dataform.CommandData;
 import ch.hearc.zookeeper.dataform.StockData;
+import ch.hearc.zookeeper.entity.EquipmentRepository;
 import ch.hearc.zookeeper.entity.Stock;
 import ch.hearc.zookeeper.entity.StockRepository;
 
@@ -35,54 +37,18 @@ import ch.hearc.zookeeper.entity.UserRoleRepository;
 @Controller
 public class StockController 
 {	
-	private static String keeperRole = "keeper";	// name of the role for the ones who are concern by stock
-	
 	@Autowired
-	UserRepository userRepository;
+	EquipmentRepository equipmentRepository;
 	
 	@Autowired
 	StockRepository stockRepository;
 	
-	@Autowired
-	UserRoleRepository userRoleRepository;
 	
 	@InitBinder
 	public void initBinder (WebDataBinder binder) 
 	{
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
     }
-	
-	public List<User> getAgents()
-	{
-		List<UserRole> roles = userRoleRepository.findAll();
-		List<User> allUsers = userRepository.findAll();
-		
-		List<User> agents = new ArrayList<User>();
-		
-		long keeperRoleId = -1;
-		
-		for(UserRole role : roles)
-		{
-			if(role.getName().equals(keeperRole))
-			{
-				keeperRoleId = role.getId();
-				break;
-			}
-		}
-		
-		if(keeperRoleId != -1)
-		{
-			for(User user : allUsers)
-			{
-				if(user.getRoles_Id() == keeperRoleId)
-				{
-					agents.add(user);
-				}
-			}
-		}
-		
-		return agents;
-	}
 	 
 	
 	@RequestMapping(value = "/stock/insert", method = RequestMethod.POST)
@@ -114,10 +80,19 @@ public class StockController
 
 	    stockRepository.delete(stock);
 	    
-	    //return users(model);
 	    
 	    return "redirect:/stock";
 	}
+	
+	@PostMapping("/stock/create")
+	public String create(Model model) 
+	{		
+		model.addAttribute("stockData", new CommandData());
+		model.addAttribute("equipments", equipmentRepository.findAll());
+		
+		return "command/create";
+	}
+	
 	
 	@PostMapping("/stock/edit/{id}")
 	public String edit(@PathVariable("id") long id, Model model) 
@@ -126,7 +101,7 @@ public class StockController
 	      .orElseThrow(() -> new IllegalArgumentException("Invalid stock Id:" + id));
 	    
 	    model.addAttribute("stockData", new StockData(stock));
-	    model.addAttribute("users", getAgents());
+	    model.addAttribute("equipments", equipmentRepository.findAll());
 	    
 	    return "/stock/edit";
 	}
@@ -134,15 +109,6 @@ public class StockController
 	@PostMapping("/stock/update")
 	public String update(Model model, @Valid @ModelAttribute("stockData") StockData stockData, BindingResult result)
 	{
-//		if(result.hasErrors()){
-//	        //error handling  
-//	        ....
-//	    }else {
-//	        //or calling the repository to save the newProduct
-//	        productService.save(newProduct);
-//	        ....
-//	    }
-		
 		Optional<Stock> stockOpt = stockRepository.findById(stockData.getId());
 		
 		if(stockOpt.isPresent())

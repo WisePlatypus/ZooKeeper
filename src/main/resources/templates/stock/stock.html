@@ -24,7 +24,7 @@
     		<tr th:each="element : ${stock}">
         
         		<td><span th:text="${element.equipment.name}"></span></td>
-        		<td><span th:text="${element.equipment.sector}"></span></td>
+        		<td><span th:text="${element.equipment.sector.name}"></span></td>
         		<td><span th:text="${element.equipment.description}"></span></td>
         		<td><span th:text="${element.quantity}"></span></td>
         		

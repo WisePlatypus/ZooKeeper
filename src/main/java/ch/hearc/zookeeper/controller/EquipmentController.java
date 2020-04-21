@@ -62,16 +62,9 @@ public class EquipmentController
 	@RequestMapping(value = "/equipment/insert", method = RequestMethod.POST)
 	public String insert(Model model, @Valid @ModelAttribute("equipmentData") EquipmentData equipmentData, BindingResult result)
 	{
-		System.out.println("****************************************************************************");
-		System.out.println("****************************************************************************");
-		System.out.println("****************************************************************************");
-		System.out.println("****************************************************************************");
-		System.out.println(equipmentData.getSector_id());
 		if(!result.hasErrors())
 		{
 			Equipment equipment = new Equipment(equipmentData);
-			
-			System.out.println(equipment.getSector_id());
 			
 			equipmentRepository.save(equipment);
 	    }

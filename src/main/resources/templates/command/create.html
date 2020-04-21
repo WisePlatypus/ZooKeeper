@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>User creation</title>
+</head>
+<body>
+	<h1>Form</h1>
+	<form action="#" th:action="@{/stock/insert}" th:object="${stockData}" method="post">	
+		
+		<p>
+			Equipment : 
+		</p>
+		
+		<select th:field="*{equipment_id}" class="form-control">
+       		<option th:each="equipmentValue: ${equipments}" th:value="${equipmentValue.id}" th:text="${equipmentValue.name}"></option>
+    	</select>
+	
+		<p>
+			Quantity : 
+			
+			name : <input type="text" th:field="*{quantity}" />
+		</p>
+		
+    	
+    	<br>
+
+		<input type="submit" value="Submit" /> <input type="reset" value="Reset" />
+	</form>
+	
+	<form action="#" th:action="@{/stock}" method="get">
+  		<button type="submit"> Back to stocks list </button>
+	</form>
+	
+</body>
+</html>
