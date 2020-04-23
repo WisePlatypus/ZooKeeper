@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             			"/users/editPassword",
             			"/stock"
             			).authenticated()
-            	.antMatchers("/tasks", "/tasks/validate/**").hasAuthority("keeper")
+            	.antMatchers("/tasks", "/tasks/validate/**").hasAnyAuthority("keeper", "administrator")
             	.antMatchers("/**").hasAnyAuthority("administrator")
                 .and()
             .formLogin()
