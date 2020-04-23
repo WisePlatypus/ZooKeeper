@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.Valid;
+
+import ch.hearc.zookeeper.dataform.SectorData;
 
 @Entity
 @Table(name="sectors")
@@ -18,6 +21,15 @@ public class Sector
 
 	@Column
 	private String name;
+
+	public Sector(@Valid SectorData sectorData) {
+		name = sectorData.getName();
+	}
+	
+	public Sector()
+	{
+		
+	}
 
 	public long getId() 
 	{
@@ -37,5 +49,10 @@ public class Sector
 	public void setName(String name) 
 	{
 		this.name = name;
+	}
+
+	public void setData(@Valid SectorData sectorData) {
+		id = sectorData.getId();
+		name = sectorData.getName();
 	}
 }

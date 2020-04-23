@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Equipment edition</title>
+</head>
+<body>
+	<h1>Form</h1>
+	<form action="#" th:action="@{/equipment/update}" th:object="${equipmentData}" method="post">	
+		
+		<input type="hidden" th:field="*{id}" />
+		
+		<p>
+			name : <input type="text" th:field="*{name}" />
+		</p>
+	
+		<p>
+			Description : 
+			
+			<textarea rows = "5" cols = "40" maxlength = "255" th:field="*{description}"></textarea>
+		</p>
+		
+		<p>
+			Sector : 
+		</p>
+		
+		<select th:field="*{sector_id}" class="form-control">
+       		<option th:each="sectorValue: ${sectors}" th:value="${sectorValue.id}" th:text="${sectorValue.name}"></option>
+    	</select>
+    	
+    	<br>
+
+    	<br>
+
+		<input type="submit" value="Submit" /> <input type="reset" value="Reset" />
+	</form>
+	
+	<form action="#" th:action="@{/equipment}" method="get">
+  		<button type="submit"> Back to equipments list </button>
+	</form>
+	
+</body>
+</html>

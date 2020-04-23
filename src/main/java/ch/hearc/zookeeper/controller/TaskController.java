@@ -47,10 +47,11 @@ public class TaskController
 	@Autowired
 	UserRoleRepository userRoleRepository;
 	
-	 @InitBinder
-	    public void initBinder (WebDataBinder binder) {
-	        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-	    }
+	@InitBinder
+	public void initBinder (WebDataBinder binder) 
+	{
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
+    }
 	
 	public List<User> getAgents()
 	{

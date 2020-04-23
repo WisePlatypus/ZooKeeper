@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Sector edition</title>
+</head>
+<body>
+	<h1>Form</h1>
+	<form action="#" th:action="@{/sector/update}" th:object="${sectorData}" method="post">	
+		
+		<input type="hidden" th:field="*{id}" />
+		
+		<p>
+			name : <input type="text" th:field="*{name}" />
+		</p>
+	
+    	<br>
+
+		<input type="submit" value="Submit" /> <input type="reset" value="Reset" />
+	</form>
+	
+	<form action="#" th:action="@{/sector}" method="get">
+  		<button type="submit"> Back to tasks list </button>
+	</form>
+	
+</body>
+</html>

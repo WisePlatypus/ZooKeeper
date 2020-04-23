@@ -1,5 +1,6 @@
 package ch.hearc.zookeeper.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,7 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+
+import ch.hearc.zookeeper.dataform.EquipmentData;
 
 @Entity
 @Table(name="equipments")
@@ -25,10 +30,27 @@ public class Equipment
 	@Column
 	private String description;
 	
+	@Column
+	private long sector_id;
+	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "sector_id", nullable = false, insertable = false, updatable = false)
 	private Sector sector;
 	
+	@OneToOne(mappedBy = "equipment", cascade = CascadeType.ALL)
+	private Stock stock;
+	
+	public Equipment(@Valid EquipmentData equipmentData) {
+		name = equipmentData.getName();
+		description = equipmentData.getDescription();
+		sector_id = equipmentData.getSector_id();
+	}
+	
+	public Equipment()
+	{
+		
+	}
+
 	public Sector getSector() 
 	{
 		return sector;
@@ -67,5 +89,21 @@ public class Equipment
 	public void setDescription(String description) 
 	{
 		this.description = description;
+	}
+
+	public void setData(@Valid EquipmentData equipmentData) 
+	{
+		name = equipmentData.getName();
+		description = equipmentData.getDescription();
+		sector_id = equipmentData.getSector_id();
+		id = equipmentData.getId();
+	}
+
+	public long getSector_id() {
+		return sector_id;
+	}
+
+	public void setSector_id(long sector_id) {
+		this.sector_id = sector_id;
 	}
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Equipment creation</title>
+</head>
+<body>
+	<h1>Form</h1>
+	<form action="#" th:action="@{/equipment/insert}" th:object="${equipmentData}" method="post">	
+		
+		<p>
+			name : <input type="text" th:field="*{name}" />
+		</p>
+	
+		<p>
+			Description : 
+			
+			<textarea rows = "5" cols = "40" maxlength = "255" th:field="*{description}"></textarea>
+		</p>
+		
+		<p>
+			Sector : 
+		</p>
+		
+		<select th:field="*{sector_id}" class="form-control">
+       		<option th:each="sectorValue: ${sectors}" th:value="${sectorValue.id}" th:text="${sectorValue.name}"></option>
+    	</select>
+    	
+    	<br>
+
+		<input type="submit" value="Submit" /> <input type="reset" value="Reset" />
+	</form>
+	
+	<form action="#" th:action="@{/equipment}" method="get">
+  		<button type="submit"> Back to equipment list </button>
+	</form>
+	
+</body>
+</html>
