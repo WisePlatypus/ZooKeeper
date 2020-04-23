@@ -1,47 +1,75 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>User creation</title>
+<title>ZooKeeper</title>
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+<meta charset="UTF-8">
 </head>
 <body>
+	<header>
+		<div>ZooKeeper</div>
+		<section>
+			<a th:href="@{/tasks}">
+				<div>Task</div>
+			</a> <a th:href="@{/stock}">
+				<div>Stock</div>
+			</a>
+		</section>
+		<section>
+			<a th:href="@{/user}">
+				<div>My account</div>
+			</a>
+		</section>
+	</header>
+	<main>
 	<h1>Equipment</h1>
-	
+
 	<form action="#" th:action="@{/equipment/create}" method="post">
-  		<button type="submit"> Add Equipment </button>
+		<button type="submit">Add Equipment</button>
 	</form>
-	
+
+
 	<table>
 		<thead>
-        	<tr>
-            	<th> Name </th>
-            	<th> Description </th>
-            	<th> Sector </th>
-        	</tr>
-    	</thead>
-	
-		<tbody>
-    		<tr th:each="equipment : ${equipments}">
-        
-        		<td><span th:text="${equipment.name}"></span></td>
-        		<td><span th:text="${equipment.description}"></span></td>
-     		
-        		<td><span th:text="${equipment.sector.name}"></span></td>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Sector</th>
+			</tr>
+		</thead>
 
-        		
-        		<td>
-            		<form action="#" th:action="@{/equipment/edit/} + ${{equipment.id}}" method="post">
-                		<button type="submit"> <i>edit</i> </button>
-            		</form>
-        		</td>
-        
-        		<td>
-	            	<form action="#" th:action="@{/equipment/delete/} + ${{equipment.id}}" method="post">
-	                	<button type="submit"> <i>delete</i> </button>
-	            	</form>
-        		</td>
-    		</tr>
+		<tbody>
+			<tr th:each="equipment : ${equipments}">
+
+				<td><span th:text="${equipment.name}"></span></td>
+				<td><span th:text="${equipment.description}"></span></td>
+
+				<td><span th:text="${equipment.sector.name}"></span></td>
+
+
+				<td>
+					<form action="#"
+						th:action="@{/equipment/edit/} + ${{equipment.id}}" method="post">
+						<button type="submit">
+							<i>edit</i>
+						</button>
+					</form>
+				</td>
+
+				<td>
+					<form action="#"
+						th:action="@{/equipment/delete/} + ${{equipment.id}}"
+						method="post">
+						<button type="submit">
+							<i>delete</i>
+						</button>
+					</form>
+				</td>
+			</tr>
 		</tbody>
 	</table>
-	
+	<a th:href="@{/equipment}">
+		<div>Add sector</div>
+	</a> </main>
 </body>
 </html>

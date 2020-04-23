@@ -1,42 +1,69 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Commands</title>
+<title>ZooKeeper</title>
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+<meta charset="UTF-8">
 </head>
 <body>
+	<header>
+		<div>ZooKeeper</div>
+		<section>
+			<a th:href="@{/tasks}">
+				<div>Task</div>
+			</a> <a th:href="@{/stock}">
+				<div>Stock</div>
+			</a>
+		</section>
+		<section>
+			<a th:href="@{/user}">
+				<div>My account</div>
+			</a>
+		</section>
+	</header>
+	<main>
 	<h1>Commands</h1>
-	
+
 	<form action="#" th:action="@{/command/create}" method="post">
-  		<button type="submit"> Create new command </button>
+		<button type="submit">Create new command</button>
+
 	</form>
-	
+
 	<table>
 		<thead>
-        	<tr>
-            	<th> Equipment </th>
-            	<th> Quantity </th>
-            	<th> Command Date </th>
-            	<th> Validated </th>
-        	</tr>
-    	</thead>
-	
+			<tr>
+				<th>Equipment</th>
+				<th>Quantity</th>
+				<th>Command Date</th>
+				<th>Validated</th>
+			</tr>
+		</thead>
+
 		<tbody>
-    		<tr th:each="command : ${commands}">
-        
-        		<td><span th:text="${command.equipment.name}"></span></td>
-        		<td><span th:text="${command.quantity}"></span></td>
-        		<td><span th:text="${command.commandDate}"></span></td>
-        		<td><span th:text="${command.validated}"></span></td>
-        		
-        		<td>
-            		<form th:if="${command.validated == false}" action="#" th:action="@{/command/edit/} + ${{command.id}}" method="post">
-                		<button type="submit"> <i>edit</i> </button>
-            		</form>
-        		</td>
-        		
-    		</tr>
+			<tr th:each="command : ${commands}">
+
+				<td><span th:text="${command.equipment.name}"></span></td>
+				<td><span th:text="${command.quantity}"></span></td>
+				<td><span th:text="${command.commandDate}"></span></td>
+				<td><span th:text="${command.validated}"></span></td>
+
+				<td>
+					<form th:if="${command.validated == false}" action="#"
+						th:action="@{/command/edit/} + ${{command.id}}" method="post">
+						<button type="submit">
+							<i>edit</i>
+						</button>
+					</form>
+				</td>
+
+			</tr>
 		</tbody>
 	</table>
-	
+	<a th:href="@{/command/validate}">
+		<div>Command management</div>
+	</a>
+	<a th:href="@{/equipment}">
+		<div>Add equipment</div>
+	</a> </main>
 </body>
 </html>

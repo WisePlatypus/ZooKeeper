@@ -1,80 +1,93 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>User creation</title>
+<title>ZooKeeper</title>
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+<meta charset="UTF-8">
 </head>
 <body>
-	<h1>Form</h1>
-	<form action="#" th:action="@{/tasks/update}" th:object="${taskData}" method="post">	
-		
+	<header>
+		<div>ZooKeeper</div>
+		<section>
+			<a th:href="@{/task}">
+				<div>Task</div>
+			</a> <a th:href="@{/stock}">
+				<div>Stock</div>
+			</a>
+		</section>
+		<section>
+			<a th:href="@{/user}">
+				<div>My account</div>
+			</a>
+		</section>
+	</header>
+	<main>
+	<h1>Task edition</h1>
+	<form action="#" th:action="@{/tasks/update}" th:object="${taskData}"
+		method="post">
+
 		<input type="hidden" th:field="*{id}" />
-		
+
 		<p>
 			name : <input type="text" th:field="*{name}" />
 		</p>
-	
+
 		<p>
-			Description : 
-			
-			<textarea rows = "5" cols = "40" maxlength = "255" th:field="*{description}"></textarea>
+			Description :
+
+			<textarea rows="5" cols="40" maxlength="255"
+				th:field="*{description}"></textarea>
 		</p>
-		
+
 		<p>
-			executed : <input type="checkbox" th:field="*{executed}"/>
+			executed : <input type="checkbox" th:field="*{executed}" />
 		</p>
-		
+
 		<p>
-			execution date : <input type="checkbox" th:field="*{date}"/>
+			execution date : <input type="checkbox" th:field="*{date}" />
 		</p>
-			
+
 		<table>
 			<thead>
-	        	<tr>
-	            	<th> Year </th>
-	            	<th> Month </th>
-	            	<th> Day </th>
-	        	</tr>
-	    	</thead>
+				<tr>
+					<th>Year</th>
+					<th>Month</th>
+					<th>Day</th>
+				</tr>
+			</thead>
 
 			<tbody>
-	    		<tr>
-	        		<td>
-	            		<select th:field="*{year}" class="form-control" >
-	       					<option th:each="i: ${#numbers.sequence(2020, 2050)}" th:value="${i}" th:text="${i}"></option>
-		    			</select>
-	        		</td>
-	        		
-	        		<td>
-	            		<select th:field="*{month}" class="form-control" >
-	       					<option th:each="i: ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}"></option>
-		    			</select>
-	        		</td>
-	        		
-	        		<td>
-	            		<select th:field="*{day}" class="form-control" >
-	       					<option th:each="i: ${#numbers.sequence(1, 31)}" th:value="${i}" th:text="${i}"></option>
-		    			</select>
-	        		</td>
-	    		</tr>
+				<tr>
+					<td><select th:field="*{year}" class="form-control">
+							<option th:each="i: ${#numbers.sequence(2020, 2050)}"
+								th:value="${i}" th:text="${i}"></option>
+					</select></td>
+
+					<td><select th:field="*{month}" class="form-control">
+							<option th:each="i: ${#numbers.sequence(1, 12)}" th:value="${i}"
+								th:text="${i}"></option>
+					</select></td>
+
+					<td><select th:field="*{day}" class="form-control">
+							<option th:each="i: ${#numbers.sequence(1, 31)}" th:value="${i}"
+								th:text="${i}"></option>
+					</select></td>
+				</tr>
 			</tbody>
 		</table>
-		
-		<p>
-			Keeper : 
-		</p>
-		
-		<select th:field="*{user_Id}" class="form-control">
-       		<option th:each="userValue: ${users}" th:value="${userValue.id}" th:text="${userValue.name}"></option>
-    	</select>
-    	
-    	<br>
 
-		<input type="submit" value="Submit" /> <input type="reset" value="Reset" />
+		<p>Keeper :</p>
+
+		<select th:field="*{user_Id}" class="form-control">
+			<option th:each="userValue: ${users}" th:value="${userValue.id}"
+				th:text="${userValue.name}"></option>
+		</select> <br> <input type="submit" value="Submit" /> <input type="reset"
+			value="Reset" />
 	</form>
-	
+
 	<form action="#" th:action="@{/tasks}" method="get">
-  		<button type="submit"> Back to tasks list </button>
+		<button type="submit">Back to tasks list</button>
 	</form>
-	
+	</main>
 </body>
 </html>

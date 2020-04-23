@@ -1,22 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Search in stock</title>
+<title>ZooKeeper</title>
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+<meta charset="UTF-8">
 </head>
 <body>
+	<header>
+		<div>ZooKeeper</div>
+		<section>
+			<a th:href="@{/tasks}">
+				<div>Task</div>
+			</a> <a th:href="@{/stock}">
+				<div>Stock</div>
+			</a>
+		</section>
+		<section>
+			<a th:href="@{/user}">
+				<div>My account</div>
+			</a>
+		</section>
+	</header>
+	<main>
 	<h1>Search in stock</h1>
-	<form action="#" th:action="@{/stock/find}" th:object="${querySearchData}" method="post">	
-		
+	<form action="#" th:action="@{/stock/find}"
+		th:object="${querySearchData}" method="post">
+
 		<p>
 			Name of equipment: <input type="text" th:field="*{searchData}" />
 		</p>
 
-		<input type="submit" value="Submit" /> <input type="reset" value="Reset" />
+		<input type="submit" value="Submit" /> <input type="reset"
+			value="Reset" />
 	</form>
-	
+
 	<form action="#" th:action="@{/stock}" method="get">
-  		<button type="submit"> Back to stock list </button>
+		<button type="submit">Back to stock list</button>
 	</form>
-	
+	</main>
 </body>
 </html>

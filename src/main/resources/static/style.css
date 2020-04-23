@@ -1,0 +1,31 @@
+header
+{
+	background-color: rgb(220,220,220);
+}
+
+header section
+{
+	display: inline-block;
+	//display: flex;
+}
+
+header section div
+{
+	display: inline-block
+}
+
+section:nth-child(3) {
+  float: right;
+}
+
+header div
+{
+	padding: 5px;
+	background-color: rgb(230,230,230);
+}
+
+header section div
+{
+	padding: 5px;
+	background-color: rgb(220,220,220);
+}

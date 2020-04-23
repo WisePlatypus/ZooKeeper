@@ -1,43 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>User creation</title>
+<title>ZooKeeper</title>
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+<meta charset="UTF-8">
 </head>
 <body>
+	<header>
+		<div>ZooKeeper</div>
+		<section>
+			<a th:href="@{/tasks}">
+				<div>Task</div>
+			</a> <a th:href="@{/stock}">
+				<div>Stock</div>
+			</a>
+		</section>
+		<section>
+			<a th:href="@{/user}">
+				<div>My account</div>
+			</a>
+		</section>
+	</header>
+	<main>
 	<h1>Sector</h1>
-	
+
 	<form action="#" th:action="@{/sector/create}" method="post">
-  		<button type="submit"> Add Sector </button>
+		<button type="submit">Add Sector</button>
 	</form>
-	
+
 	<table>
 		<thead>
-        	<tr>
-            	<th> Name </th>
-            	<th> Description </th>
-            	<th> Sector </th>
-        	</tr>
-    	</thead>
-	
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Sector</th>
+			</tr>
+		</thead>
+
 		<tbody>
-    		<tr th:each="sector : ${sectors}">
-        
-        		<td><span th:text="${sector.name}"></span></td>
-        		
-        		<td>
-            		<form action="#" th:action="@{/sector/edit/} + ${{sector.id}}" method="post">
-                		<button type="submit"> <i>edit</i> </button>
-            		</form>
-        		</td>
-        
-        		<td>
-	            	<form action="#" th:action="@{/sector/delete/} + ${{sector.id}}" method="post">
-	                	<button type="submit"> <i>delete</i> </button>
-	            	</form>
-        		</td>
-    		</tr>
+			<tr th:each="sector : ${sectors}">
+
+				<td><span th:text="${sector.name}"></span></td>
+
+				<td>
+					<form action="#" th:action="@{/sector/edit/} + ${{sector.id}}"
+						method="post">
+						<button type="submit">
+							<i>edit</i>
+						</button>
+					</form>
+				</td>
+
+				<td>
+					<form action="#" th:action="@{/sector/delete/} + ${{sector.id}}"
+						method="post">
+						<button type="submit">
+							<i>delete</i>
+						</button>
+					</form>
+				</td>
+			</tr>
 		</tbody>
 	</table>
-	
+	</main>
 </body>
 </html>

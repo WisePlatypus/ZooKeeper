@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Sector creation</title>
+<title>ZooKeeper</title>
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+<meta charset="UTF-8">
 </head>
 <body>
-	<h1>Form</h1>
-	<form action="#" th:action="@{/sector/insert}" th:object="${sectorData}" method="post">	
-		
+	<header>
+		<div>ZooKeeper</div>
+		<section>
+			<a th:href="@{/tasks}">
+				<div>Task</div>
+			</a> <a th:href="@{/stock}">
+				<div>Stock</div>
+			</a>
+		</section>
+		<section>
+			<a th:href="@{/user}">
+				<div>My account</div>
+			</a>
+		</section>
+	</header>
+	<main>
+	<h1>Sector creation</h1>
+	<form action="#" th:action="@{/sector/insert}"
+		th:object="${sectorData}" method="post">
+
 		<p>
 			name : <input type="text" th:field="*{name}" />
 		</p>
 
-		
-    	<br>
 
-		<input type="submit" value="Submit" /> <input type="reset" value="Reset" />
+		<br> <input type="submit" value="Submit" /> <input type="reset"
+			value="Reset" />
 	</form>
-	
+
 	<form action="#" th:action="@{/sector}" method="get">
-  		<button type="submit"> Back to tasks list </button>
+		<button type="submit">Back to tasks list</button>
 	</form>
-	
+	</main>
 </body>
 </html>

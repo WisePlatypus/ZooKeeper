@@ -1,38 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Equipment creation</title>
+<title>ZooKeeper</title>
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+<meta charset="UTF-8">
 </head>
 <body>
-	<h1>Form</h1>
-	<form action="#" th:action="@{/equipment/insert}" th:object="${equipmentData}" method="post">	
-		
+	<header>
+		<div>ZooKeeper</div>
+		<section>
+			<a th:href="@{/tasks}">
+				<div>Task</div>
+			</a> <a th:href="@{/stock}">
+				<div>Stock</div>
+			</a>
+		</section>
+		<section>
+			<a th:href="@{/user}">
+				<div>My account</div>
+			</a>
+		</section>
+	</header>
+	<main>
+	<h1>Equipment creation</h1>
+	<form action="#" th:action="@{/equipment/insert}"
+		th:object="${equipmentData}" method="post">
+
 		<p>
 			name : <input type="text" th:field="*{name}" />
 		</p>
-	
-		<p>
-			Description : 
-			
-			<textarea rows = "5" cols = "40" maxlength = "255" th:field="*{description}"></textarea>
-		</p>
-		
-		<p>
-			Sector : 
-		</p>
-		
-		<select th:field="*{sector_id}" class="form-control">
-       		<option th:each="sectorValue: ${sectors}" th:value="${sectorValue.id}" th:text="${sectorValue.name}"></option>
-    	</select>
-    	
-    	<br>
 
-		<input type="submit" value="Submit" /> <input type="reset" value="Reset" />
+		<p>
+			Description :
+
+			<textarea rows="5" cols="40" maxlength="255"
+				th:field="*{description}"></textarea>
+		</p>
+
+		<p>Sector :</p>
+
+		<select th:field="*{sector_id}" class="form-control">
+			<option th:each="sectorValue: ${sectors}"
+				th:value="${sectorValue.id}" th:text="${sectorValue.name}"></option>
+		</select> <br> <input type="submit" value="Submit" /> <input type="reset"
+			value="Reset" />
 	</form>
-	
+
 	<form action="#" th:action="@{/equipment}" method="get">
-  		<button type="submit"> Back to equipment list </button>
+		<button type="submit">Back to equipment list</button>
 	</form>
-	
+	</main>
 </body>
 </html>
