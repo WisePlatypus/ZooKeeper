@@ -53,6 +53,11 @@ public class Equipment
 		
 	}
 
+	public Equipment(String equname, String sectName) {
+		this.name = equname;
+		this.sector = new Sector(sectName);
+	}
+
 	public Sector getSector() 
 	{
 		return sector;

@@ -42,6 +42,13 @@ public class Stock
 		// TODO Auto-generated constructor stub
 	}
 
+	public Stock(String quantity, String equname, String sectName, String id) 
+	{
+		this.equipment_id=Integer.parseInt(id);
+		this.quantity=Integer.parseInt(quantity);
+		this.equipment = new Equipment(equname, sectName);
+	}
+
 	public long getEquipment_id() 
 	{
 		return equipment_id;

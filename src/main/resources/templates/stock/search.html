@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Search in stock</title>
+</head>
+<body>
+	<h1>Search in stock</h1>
+	<form action="#" th:action="@{/stock/find}" th:object="${querySearchData}" method="post">	
+		
+		<p>
+			Name of equipment: <input type="text" th:field="*{searchData}" />
+		</p>
+
+		<input type="submit" value="Submit" /> <input type="reset" value="Reset" />
+	</form>
+	
+	<form action="#" th:action="@{/stock}" method="get">
+  		<button type="submit"> Back to stock list </button>
+	</form>
+	
+</body>
+</html>

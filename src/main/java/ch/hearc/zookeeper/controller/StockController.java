@@ -9,6 +9,10 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ch.hearc.zookeeper.dataform.CommandData;
 import ch.hearc.zookeeper.dataform.StockData;
 import ch.hearc.zookeeper.entity.EquipmentRepository;
+import ch.hearc.zookeeper.entity.QuerySearchData;
 import ch.hearc.zookeeper.entity.Stock;
 import ch.hearc.zookeeper.entity.StockRepository;
 
@@ -106,31 +111,39 @@ public class StockController
 	}
 	
 	
-	@PostMapping("/stock/edit/{id}")
-	public String edit(@PathVariable("id") long id, Model model) 
+	@GetMapping("/stock/search")
+	public String search(Model model) 
 	{
-	    Stock stock = stockRepository.findById(id)
-	      .orElseThrow(() -> new IllegalArgumentException("Invalid stock Id:" + id));
-	    
-	    model.addAttribute("stockData", new StockData(stock));
-	    model.addAttribute("equipments", equipmentRepository.findAll());
-	    
-	    return "/stock/edit";
+		model.addAttribute("querySearchData", new QuerySearchData());
+		
+	    return "/stock/search";
 	}
 	
-	@PostMapping("/stock/update")
-	public String update(Model model, @Valid @ModelAttribute("stockData") StockData stockData, BindingResult result)
+	@RequestMapping(value = "/stock/find", method = RequestMethod.POST)
+	public String find(Model model, @Valid @ModelAttribute("equipmentName") QuerySearchData queryName, BindingResult result)
 	{
-		Optional<Stock> stockOpt = stockRepository.findById(stockData.getEquipment_id());
+		Query q = em.createNativeQuery("SELECT st.quantity as squantity, e.name as ename, se.name as sename, st.equipment_id as id\n" + 
+				"FROM stocks AS st, equipments AS e, sectors as se\n" + 
+				"WHERE st.equipment_id=e.id AND e.sector_id = se.id AND e.name=?;");
+		q.setParameter(1, queryName.getSearchData());
 		
-		if(stockOpt.isPresent())
+		
+		List<Object[]> trucs = q.getResultList();
+		
+		List<Stock> stocks = new ArrayList<Stock>();
+		
+		System.out.println("***********************************");
+		for(Object[] truc : trucs)
 		{
-			Stock stock = stockOpt.get();
-			stock.setData(stockData);
-			
-			stockRepository.save(stock);
+			stocks.add(new Stock(""+truc[0],""+truc[1], ""+truc[2], ""+truc[3]));
+			System.out.println("yay:" + truc[0] + truc[1]);
 		}
+		//Object[] queryRes = [Object[]) 
 		
-		return "redirect:/stock";
+		//System.out.println(queryRes[0] + queryRes[1] + queryRes[2], queryRes[3]);
+		
+		model.addAttribute("stock", stocks);
+		
+		return "/stock/find";
 	}
 }

@@ -31,6 +31,10 @@ public class Sector
 		
 	}
 
+	public Sector(String sectName) {
+		this.name = sectName;
+	}
+
 	public long getId() 
 	{
 		return id;

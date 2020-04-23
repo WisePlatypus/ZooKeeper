@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Stocks</title>
+</head>
+<body>
+	<h1>Stock</h1>
+	
+	<table>
+		<thead>
+        	<tr>
+            	<th> Name </th>
+            	<th> Sector </th>
+            	<th> Quantity </th>
+        	</tr>
+    	</thead>
+	
+		<tbody>
+    		<tr th:each="element : ${stock}">
+        
+        		<td><span th:text="${element.equipment.name}"></span></td>
+        		<td><span th:text="${element.equipment.sector.name}"></span></td>
+        		<td><span th:text="${element.quantity}"></span></td>
+        		
+        
+        		<td>
+	            	<form action="#" th:action="@{/stock/delete/} + ${{element.equipment_id}}" method="post">
+	                	<button type="submit"> <i>delete</i> </button>
+	            	</form>
+        		</td>
+    		</tr>
+		</tbody>
+	</table>
+	
+	<form action="#" th:action="@{/stock/create}" method="post">
+  		<button type="submit"> Set Manually </button>
+	</form>
+	
+</body>
+</html>
