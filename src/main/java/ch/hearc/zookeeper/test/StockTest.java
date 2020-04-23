@@ -15,7 +15,7 @@ public class StockTest
 	public void defaultConstructor()
 	{
 		Stock stock = new Stock();
-		assertTrue(stock.getId() == 0);
+		assertTrue(stock.getEquipment_id() == 0);
 		assertTrue(stock.getQuantity() == 0);
 	}
 	
@@ -36,11 +36,11 @@ public class StockTest
 		StockData data = new StockData();
 		
 		data.setQuantity(15);
-		data.setId(10);
+		data.setEquipment_id(10);
 		
 		stock.setData(data);
 		
-		assertTrue(stock.getId() == 10);
+		assertTrue(stock.getEquipment_id() == 10);
 		assertTrue(stock.getQuantity() == 15);
 	}	
 }
