@@ -4,12 +4,12 @@ import ch.hearc.zookeeper.entity.Stock;
 
 public class StockData 
 {
-	private long id;
+	private long equipment_id;
 	
 	private int quantity;
 
 	public StockData(Stock stock) {
-		this.id = stock.getId();
+		this.equipment_id = stock.getEquipment_id();
 		this.quantity = stock.getQuantity();
 	}
 
@@ -25,12 +25,12 @@ public class StockData
 		this.quantity = quantity;
 	}
 
-	public long getId() {
-		return id;
+	public long getEquipment_id() {
+		return equipment_id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setEquipment_id(long id) {
+		this.equipment_id = id;
 	}
 
 

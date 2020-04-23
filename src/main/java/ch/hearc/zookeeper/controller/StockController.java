@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,9 @@ public class StockController
 	@Autowired
 	StockRepository stockRepository;
 	
+	@Autowired
+	EntityManager em;
+	
 	
 	@InitBinder
 	public void initBinder (WebDataBinder binder) 
@@ -57,7 +62,14 @@ public class StockController
 		if(!result.hasErrors())
 		{
 			Stock stock = new Stock(stockData);
-			
+			/*Query q = em.createNativeQuery("INSERT INTO STOCKS (equipment_id, quantity) VALUES (" 
+					+ stock.getEquipment_id() + ", " 
+					+ stock.getQuantity() + ");");*/
+			System.out.println("******************************************");
+			System.out.println("INSERT INTO stocks (equipment_id, quantity) VALUES (" 
+					+ stock.getEquipment_id() + ", " 
+					+ stock.getQuantity() + ");");
+			//q.executeUpdate();
 			stockRepository.save(stock);
 	    }
 		
@@ -109,7 +121,7 @@ public class StockController
 	@PostMapping("/stock/update")
 	public String update(Model model, @Valid @ModelAttribute("stockData") StockData stockData, BindingResult result)
 	{
-		Optional<Stock> stockOpt = stockRepository.findById(stockData.getId());
+		Optional<Stock> stockOpt = stockRepository.findById(stockData.getEquipment_id());
 		
 		if(stockOpt.isPresent())
 		{

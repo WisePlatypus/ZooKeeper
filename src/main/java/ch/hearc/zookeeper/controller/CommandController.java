@@ -128,7 +128,7 @@ public class CommandController
 	    else
 	    {
 	    	Stock stock = new Stock();
-	    	stock.setId(command.getEquipement_id());
+	    	stock.setEquipment_id(command.getEquipement_id());
 	    	stock.setQuantity(command.getQuantity());
 	    	
 	    	stockRepository.save(stock);
