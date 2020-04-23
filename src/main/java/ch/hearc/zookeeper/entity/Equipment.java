@@ -37,8 +37,10 @@ public class Equipment
 	@JoinColumn(name = "sector_id", nullable = false, insertable = false, updatable = false)
 	private Sector sector;
 	
+	/*
 	@OneToOne(mappedBy = "equipment", cascade = CascadeType.ALL)
 	private Stock stock;
+	*/
 	
 	public Equipment(@Valid EquipmentData equipmentData) {
 		name = equipmentData.getName();
@@ -49,6 +51,11 @@ public class Equipment
 	public Equipment()
 	{
 		
+	}
+
+	public Equipment(String equname, String sectName) {
+		this.name = equname;
+		this.sector = new Sector(sectName);
 	}
 
 	public Sector getSector() 
