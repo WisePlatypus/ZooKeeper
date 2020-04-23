@@ -1,0 +1,15 @@
+package com.example.demo;
+
+import org.springframework.*;
+import org.springframework.data.annotation.Id;
+import javax.persistence.Entity;
+
+@Entity
+public class Classe {
+	
+	@Id
+	@GeneratedValue(strategy =
+	GenerationType.AUTO)
+	private Long id;
+
+}

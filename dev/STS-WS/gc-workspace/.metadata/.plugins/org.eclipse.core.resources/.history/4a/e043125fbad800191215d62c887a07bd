@@ -1,0 +1,26 @@
+package ch.jee.gc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class MySqlConnection {
+
+	private final static String URL = "jdbc:mysql://locahost:3326/beershop";
+	private final static String USER = "root";
+	private final static String PASS = "toor";
+	
+	public Connection getConnection () {
+		
+		Connection connection = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			connection = DriverManager.getConnection(URL,USER,PASS);
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return connection;
+	}
+}

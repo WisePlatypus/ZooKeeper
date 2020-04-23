@@ -1,0 +1,5 @@
+package ch.jee.gc;
+
+public class MySqlConnection {
+
+}

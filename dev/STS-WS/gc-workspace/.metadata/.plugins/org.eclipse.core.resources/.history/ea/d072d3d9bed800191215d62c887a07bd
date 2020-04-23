@@ -1,0 +1,54 @@
+package ch.jee.gc;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class BiereDAO {
+
+public List<String> findAllBieres() {
+		
+		List<String> bieres = new ArrayList<>();
+		
+		String query = "SELECT * FROM biere";
+		
+		Connection connection  = MySqlConnection.getConnection();
+		
+		try {
+			
+			Statement s = connection.createStatement();
+			
+			ResultSet rs = s.executeQuery(query);
+			
+			while (rs.next())
+		      {
+		        int id = rs.getInt("id");
+		        String nom = rs.getString("nom");
+		        String fabricant = rs.getString("fabricant");
+		        Double prix  = rs.getDouble("prix");
+		        
+		        // print the results
+		        System.out.format("%s, %s, %s\n", id, nom, prix);
+		        
+		        bieres.add(nom);
+		      }
+			
+			
+		} catch (SQLException e) {
+			
+			throw new RuntimeException(e);
+			
+		}finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		
+		return bieres;
+	}
+}

@@ -1,0 +1,69 @@
+package ch.jee.gc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MySqlConnection {
+
+	private final static String URL = "jdbc:mysql://localhost:3306/beershop";
+	private final static String USER = "root";
+	private final static String PASS = "toor";
+	
+	public Connection getConnection () {
+		
+		Connection connection = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			connection = DriverManager.getConnection(URL,USER,PASS);
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		
+		
+		return connection;
+	}
+	
+	public List<String> findAllBieres(){
+		
+		List<String> bieres = new ArrayList<>();
+		
+		String query = "SELECT * FROM biere";
+		
+		Connection connection  = getConnection();
+		
+		
+		try {
+			
+			Statement s = connection.createStatement();
+			
+			ResultSet rs = s.executeQuery(query);
+			
+			while (rs.next())
+		      {
+		        int id = rs.getInt("id");
+		        String nom = rs.getString("fnom");
+		        String fabricant = rs.getString("fabricant");
+		        Double prix  = rs.getDouble("prix");
+		        
+		        // print the results
+		        System.out.format("%s, %s, %s\n", id, nom, prix);
+		        
+		        biere.add(nom);
+		      }
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return bieres;
+	}
+}

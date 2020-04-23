@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Code</th>
+				<th scope="col">Language</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="language: ${languages}">
+				<td th:text="${language.CountryCode}" />
+				<td th:text="${language.Language}" />
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>
