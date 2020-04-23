@@ -107,7 +107,7 @@ public class StockController
 		model.addAttribute("stockData", new CommandData());
 		model.addAttribute("equipments", equipmentRepository.findAll());
 		
-		return "command/create";
+		return "/stock/create";
 	}
 	
 	

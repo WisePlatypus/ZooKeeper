@@ -1,30 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>User creation</title>
-</head>
 <body>
-	<h1>Form</h1>
-	<form action="#" th:action="@{/users/insert}" th:object="${user}" method="post">	
-		
+	<header>
+		<div>ZooKeeper</div>
+		<section>
+			<a th:href="@{/tasks}">
+				<div>Task</div>
+			</a> <a th:href="@{/stock}">
+				<div>Stock</div>
+			</a>
+		</section>
+		<section>
+			<a th:href="@{/user}">
+				<div>My account</div>
+			</a>
+		</section>
+	</header>
+	<main>
+	<h1>User creation</h1>
+	<form action="#" th:action="@{/users/insert}" th:object="${user}"
+		method="post">
+
 		<p>
 			name : <input type="text" th:field="*{name}" />
 		</p>
-		
+
 		<p>
 			password : <input type="password" th:field="*{password}" />
 		</p>
-		
-		<select th:field="*{roles_Id}" class="form-control">
-       		<option th:each="roleValue: ${roles}" th:value="${roleValue.id}" th:text="${roleValue.name}"></option>
-    	</select>
 
-		<input type="submit" value="Submit" /> <input type="reset" value="Reset" />
+		<select th:field="*{roles_Id}" class="form-control">
+			<option th:each="roleValue: ${roles}" th:value="${roleValue.id}"
+				th:text="${roleValue.name}"></option>
+		</select> <input type="submit" value="Submit" /> <input type="reset"
+			value="Reset" />
 	</form>
-	
+
 	<form action="#" th:action="@{/users}" method="get">
-  		<button type="submit"> Back to users list </button>
+		<button type="submit">Back to users list</button>
 	</form>
-	
+	</main>
 </body>
 </html>

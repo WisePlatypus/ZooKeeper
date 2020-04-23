@@ -47,7 +47,7 @@
 				<td><span th:text="${command.validated}"></span></td>
 
 				<td>
-					<form action="#"
+					<form action="#" th:if="${command.validated == false}"
 						th:action="@{/command/confirmValidation/} + ${{command.id}}"
 						method="post">
 						<button type="submit">
@@ -57,7 +57,7 @@
 				</td>
 
 				<td>
-					<form action="#"
+					<form action="#" th:if="${command.validated == true}"
 						th:action="@{/command/reception/} + ${{command.id}}" method="post">
 						<button type="submit">
 							<i>confirm reception</i>

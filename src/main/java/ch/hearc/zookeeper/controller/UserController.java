@@ -47,42 +47,19 @@ public class UserController
 		return "user/create";
 	}
 
-//	@PostMapping("/users/insert")
-//	public String insertPerson(@ModelAttribute User user)
-//	{
-//		userRepository.save(user);
-//		return "/user/login";
-//	}
-	
-//	@PostMapping("/users/insert")
-//	public String insertPerson(@Valid User user, 
-//			BindingResult bindingResult, 
-//			Model model )
-//	{
-//		userRepository.save(user);
-//		return "/user/login";
-//	}
+
 	
 	@RequestMapping(value = "/users/insert", method = RequestMethod.POST)
 	public String insert(Model model, @Valid @ModelAttribute("user") User user, BindingResult result)
 	{
-//		if(result.hasErrors()){
-//	        //error handling  
-//	        ....
-//	    }else {
-//	        //or calling the repository to save the newProduct
-//	        productService.save(newProduct);
-//	        ....
-//	    }
-		
+
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
 		userRepository.save(user);
 		
 		return "redirect:/users";
-		
-		//return users(model);
+
 	}
 	
 	@GetMapping("/user")

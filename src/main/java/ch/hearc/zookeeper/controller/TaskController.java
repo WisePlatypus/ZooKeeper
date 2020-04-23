@@ -12,6 +12,8 @@ import javax.validation.Valid;
 import org.apache.catalina.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +27,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ch.hearc.zookeeper.dataform.PasswordChangeData;
 import ch.hearc.zookeeper.dataform.TaskData;
+import ch.hearc.zookeeper.entity.Command;
 import ch.hearc.zookeeper.entity.Task;
 import ch.hearc.zookeeper.entity.TaskRepository;
 import ch.hearc.zookeeper.entity.User;
@@ -113,6 +117,35 @@ public class TaskController
 		model.addAttribute("tasks", taskRepository.findAll());
 		
 		return "/task/tasks";
+	}
+	
+	@PostMapping("/tasks/validate/{id}")
+	public String confirmValidation(@PathVariable("id") long id, Model model)
+	{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentUserName = authentication.getName();
+		
+		List<User> users = userRepository.findAll();
+		long userID = -1;
+		
+		for(User userTemp : users)
+		{
+			if(userTemp.getName().equals(currentUserName))
+			{
+				userID = userTemp.getId();
+			}
+		}
+		
+	    Task task = taskRepository.findById(id)
+	      .orElseThrow(() -> new IllegalArgumentException("Invalid command Id:" + id));
+	    
+	    if(task.getUser_Id() == userID)
+	    {
+	    	task.setExecuted(true);	    	
+	    	taskRepository.save(task);
+	    }
+	    
+	    return "redirect:/tasks";
 	}
 	
 	@PostMapping("/tasks/delete/{id}")

@@ -22,52 +22,62 @@
 		</section>
 	</header>
 	<main>
-		<h1>Tasks</h1>
-	
-		<form action="#" th:action="@{/tasks/create}" method="post">
-			<button type="submit">Create new task</button>
-		</form>
-	
-		<table>
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Description</th>
-					<th>Excuted</th>
-					<th>Execution date</th>
-					<th>Keeper</th>
-				</tr>
-			</thead>
-	
-			<tbody>
-				<tr th:each="task : ${tasks}">
-	
-					<td><span th:text="${task.name}"></span></td>
-					<td><span th:text="${task.description}"></span></td>
-					<td><span th:text="${task.executed}"></span></td>
-					<td><span th:text="${task.executionDate}"></span></td>
-					<td><span th:text="${task.user.name}"></span></td>
-	
-					<td>
-						<form action="#" th:action="@{/tasks/edit/} + ${{task.id}}"
-							method="post">
-							<button type="submit">
-								<i>edit</i>
-							</button>
-						</form>
-					</td>
-	
-					<td>
-						<form action="#" th:action="@{/tasks/delete/} + ${{task.id}}"
-							method="post">
-							<button type="submit">
-								<i>delete</i>
-							</button>
-						</form>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+	<h1>Tasks</h1>
+
+	<form action="#" th:action="@{/tasks/create}" method="post">
+		<button type="submit">Create new task</button>
+	</form>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Excuted</th>
+				<th>Execution date</th>
+				<th>Keeper</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="task : ${tasks}">
+
+				<td><span th:text="${task.name}"></span></td>
+				<td><span th:text="${task.description}"></span></td>
+				<td><span th:text="${task.executed}"></span></td>
+				<td><span th:text="${task.executionDate}"></span></td>
+				<td><span th:text="${task.user.name}"></span></td>
+
+				<td>
+					<form action="#" th:action="@{/tasks/edit/} + ${{task.id}}"
+						method="post">
+						<button type="submit">
+							<i>edit</i>
+						</button>
+					</form>
+				</td>
+
+				<td>
+					<form action="#" th:if="${task.executed == false}"
+						th:action="@{/tasks/validate/} + ${{task.id}}"
+						method="post">
+						<button type="submit">
+							<i>validate</i>
+						</button>
+					</form>
+				</td>
+
+				<td>
+					<form action="#" th:action="@{/tasks/delete/} + ${{task.id}}"
+						method="post">
+						<button type="submit">
+							<i>delete</i>
+						</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 	</main>
 </body>
 </html>

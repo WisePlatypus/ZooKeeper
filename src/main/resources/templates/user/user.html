@@ -1,29 +1,49 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>Hello World!</title>
-    </head>
-    <body>
-        <h1>Hello world from web security - User Page</h1>
-        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]] !</h1>
-        
-        <p> Your authorities are : </p>
-        
-        <table>
-			<tr th:each="authoritie: ${authorities}">
-				<td th:text="${authoritie}" />
-			</tr>
-		</table>
-		
-		<br>
-        
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-        
-        <form action="#" th:action="@{/users/editPassword/} + ${#httpServletRequest.remoteUser}" method="post">
-           	<button type="submit"> <i>change password</i> </button>
-        </form>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<body>
+	<header>
+		<div>ZooKeeper</div>
+		<section>
+			<a th:href="@{/tasks}">
+				<div>Task</div>
+			</a> <a th:href="@{/stock}">
+				<div>Stock</div>
+			</a>
+		</section>
+		<section>
+			<a th:href="@{/user}">
+				<div>My account</div>
+			</a>
+		</section>
+	</header>
+	<main>
+	<h1>User Page</h1>
+	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]] !</h1>
+
+	<p>Your authorities are :</p>
+
+	<table>
+		<tr th:each="authoritie: ${authorities}">
+			<td th:text="${authoritie}" />
+		</tr>
+	</table>
+
+	<br>
+
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
+
+	<form action="#"
+		th:action="@{/users/editPassword/} + ${#httpServletRequest.remoteUser}"
+		method="post">
+		<button type="submit">
+			<i>change password</i>
+		</button>
+	</form>
+	</main>
+</body>
+
 </html>

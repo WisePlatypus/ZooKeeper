@@ -23,8 +23,8 @@
 	</header>
 	<main>
 	<h1>Manual stock edit</h1>
-	<form action="#" th:action="@{/command/insert}"
-		th:object="${commandData}" method="post">
+	<form action="#" th:action="@{/stock/insert}"
+		th:object="${stockData}" method="post">
 
 		<p>Equipment :</p>
 
@@ -37,45 +37,12 @@
 			Quantity : name : <input type="text" th:field="*{quantity}" />
 		</p>
 
-		<p>
-			Command date : <input type="checkbox" th:field="*{date}" />
-		</p>
-
-		<table>
-			<thead>
-				<tr>
-					<th>Year</th>
-					<th>Month</th>
-					<th>Day</th>
-				</tr>
-			</thead>
-
-			<tbody>
-				<tr>
-					<td><select th:field="*{year}" class="form-control">
-							<option th:each="i: ${#numbers.sequence(2020, 2050)}"
-								th:value="${i}" th:text="${i}"></option>
-					</select></td>
-
-					<td><select th:field="*{month}" class="form-control">
-							<option th:each="i: ${#numbers.sequence(1, 12)}" th:value="${i}"
-								th:text="${i}"></option>
-					</select></td>
-
-					<td><select th:field="*{day}" class="form-control">
-							<option th:each="i: ${#numbers.sequence(1, 31)}" th:value="${i}"
-								th:text="${i}"></option>
-					</select></td>
-				</tr>
-			</tbody>
-		</table>
-
 
 		<br> <input type="submit" value="Submit" /> <input type="reset"
 			value="Reset" />
 	</form>
 
-	<form action="#" th:action="@{/command}" method="get">
+	<form action="#" th:action="@{/stock}" method="get">
 		<button type="submit">Back to commands list</button>
 	</form>
 	</main>
